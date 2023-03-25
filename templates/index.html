@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask the Light</title>
+    <style>
+        @font-face {
+            font-family: "PWSimpleHandwriting";
+            src: url("/static/fonts/PWSimpleHandwriting.woff2") format("woff2");
+        }
+
+        body {
+            font-family: "PWSimpleHandwriting", sans-serif;
+        }
+    </style>
+    <script>
+        function clearPage() {
+            document.getElementById("response").innerHTML = "";
+            document.getElementById("error").innerHTML = "";
+        }
+    </script>
+</head>
+
+<body>
+    <h1>This Little Light of Mine</h1>
+    <form method="post">
+        <label for="topic">What does Jesus think about </label>
+        <input type="text" id="topic" name="topic" required>
+        <label for="topic">?</label>
+        <button type="submit" onclick="clearPage()">Ask</button>
+    </form>
+    <br>
+    <hr>
+    <br>
+    {% if error %}
+    <div id="error">{{ error|safe }}</div>
+    {% endif %}
+    {% if topic %}
+    <div id="topic">
+        {{ topic }}
+    </div>
+    {% endif %}
+    {% if title %}
+    <div id="title">
+        <h3>{{ title }}</h3>
+    </div>
+    {% endif %}
+    {% if words %}
+    <div id="response">{{ words|safe }}</div>
+    {% endif %}
+
+</body>
+
+</html>
