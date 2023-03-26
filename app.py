@@ -29,7 +29,11 @@ def index():
             response = None
             return render_template('index.html', response=response, error=error)
         # Call into openai to see what the bible/Jesus says about the topic_string
-        what_would_Jesus_say = jesus_thoughts(topic_string)
+        try:
+            what_would_Jesus_say = jesus_thoughts(topic_string)
+        except Exception as e:
+            logfile.error(f"Error calling into openai: {e}")
+            return render_template('index.html',title='Uhoh..something went wrong!', words='', error=error)
         print(what_would_Jesus_say["topic"])
         print(what_would_Jesus_say["title"])
         print(what_would_Jesus_say["words"])

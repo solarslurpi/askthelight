@@ -13,7 +13,11 @@ If the topic is non-offensive, non-trivial, spelled correctly, and comprehensibl
 If the topic is unclear or misspelled, set the meaningful_topic to "none".
 If the topic is about food that is not good for us to eat, the meaningful_topic="unhealthy food"
 
-Provide your response in a JSON format with the following fields: "incoming_topic", "meaningful_topic", and "reason". The "reason" field should explain your choice for the meaningful_topic based on the guidelines above. If the meaningful_topic is different than the topic, don't mention meaningful_topic since the high school student would not understand this.  Just say you mapped the topic into the new one.  Ensure the JSON string is valid and can be easily used within a Python program.
+Provide your response in a JSON format with the following fields: 
+- "incoming_topic", 
+- "meaningful_topic", 
+- "reason"
+The "reason" field should explain your choice for "meaningful_topic" based on the guidelines above. DO NOT provide a summary sentence that includes the term meaningful_topic. If you want to use the term meaningful_topic, use meaningful topic with a space instead of underline.  Ensure the JSON string is valid and can be easily used within a Python program.
 
 
 
