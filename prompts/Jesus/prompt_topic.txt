@@ -6,11 +6,14 @@ To complete the task, follow these guidelines:
 
 If the topic contains swear words or offensive language, find a similar meaning and set the meaningful_topic accordingly (e.g., "swearing" for "F*** you").
 If the topic is offensive and no meaningful_topic can be found, set meaningful_topic to "none".
-If the topic is trivial (e.g., "bubblegum", "pizza", "noodles", "orange", "table", "ball", and many other words that do not require deeper thoughts.  They are words to trick you), set the meaningful_topic to "none".
+If the topic is not a topic Jesus would have a strong opinion about, set meaningful_topic to "none". An example of this kind of topic is garlic. 
+If it is difficult to know what Jesus would think about the topic, set meaningful_topic to "none". An example of this kind of topic is aspirin.
+If the topic is something not known in Jesus's time, set meaningful_reply to none.
 If the topic is non-offensive, non-trivial, spelled correctly, and comprehensible, the meaningful_topic is the same as the original topic.
 If the topic is unclear or misspelled, set the meaningful_topic to "none".
+If the topic is about food that is not good for us to eat, the meaningful_topic="unhealthy food"
 
-Provide your response in a JSON format with the following fields: "incoming_topic", "meaningful_topic", and "reason". The "reason" field should explain your choice for the meaningful_topic based on the guidelines above. Ensure the JSON string is valid and can be easily used within a Python program.
+Provide your response in a JSON format with the following fields: "incoming_topic", "meaningful_topic", and "reason". The "reason" field should explain your choice for the meaningful_topic based on the guidelines above. If the meaningful_topic is different than the topic, don't mention meaningful_topic since the high school student would not understand this.  Just say you mapped the topic into the new one.  Ensure the JSON string is valid and can be easily used within a Python program.
 
 
 

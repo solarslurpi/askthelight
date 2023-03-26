@@ -1,0 +1,2 @@
+export OPENAI_API_KEY="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"
+

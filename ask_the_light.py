@@ -4,28 +4,26 @@ from logger import get_logger
 import re
 
 def jesus_thoughts(topic_string):
+    logfile = get_logger('app')
     # Call ask_light with prompt_file=prompts/Jesus/prompt_topic.txt  
     topic_json_str = ask_light("prompts/Jesus/prompt_topic.txt",topic_string)
     # remove spaces and newlines outside of quotes.
     # topic_json_str = re.sub(r'\s+(?=(?:[^"]*"[^"]*")*[^"]*$)', '', topic_json_str)
     # Remove unwanted characters, spaces, and newlines outside of quotes
     topic_json_str = re.sub(r'[^\x00-\x7F]+|\s+(?=(?:[^"]*"[^"]*")*[^"]*$)', '', topic_json_str)
-    print(topic_json_str)
     # Parse the JSON string into a dictionary
     try:
         topic_json_dict = json.loads(topic_json_str)
     except Exception as e:
         print(e)
         return None
-    print(json.dumps(topic_json_dict, indent=4))
     # Call ask_light with the new prompt.
     meaningful_topic = topic_json_dict["meaningful_topic"].lower()
     topic_explanation = ""
 
 
     if meaningful_topic != "none":
-        if meaningful_topic != topic_string:
-            topic_explanation = f"You asked about {topic_string}.  The topic Jesus will address is {topic_json_dict['meaningful_topic']}.  The reason for this is {topic_json_dict['reason']}"
+        topic_explanation = f"You asked about {topic_string}.  The topic Jesus will address is {topic_json_dict['meaningful_topic']}.  The reason for this is {topic_json_dict['reason']}"
         jesus_words = ask_light("prompts/Jesus/prompt_response.txt", topic_json_dict["meaningful_topic"])
         jesus_json = {"topic":topic_explanation,
                       "title": f"What did Jesus think about {topic_json_dict['meaningful_topic']}",
@@ -36,6 +34,7 @@ def jesus_thoughts(topic_string):
                       "title": "",
                       "words": ""
                       }
+    logfile.info(f"{jesus_json}")
     return jesus_json
 
 
@@ -47,8 +46,8 @@ def ask_light(prompt_file, topic_string):
     response = openai.Completion.create(
         engine="text-davinci-003",
         prompt=prompt,
-        max_tokens=512,
-        temperature=0.7
+        max_tokens=600,
+        temperature=0
         )
     the_message = response.choices[0].text.strip()
     logfile.debug(f"The Message is: {the_message}")

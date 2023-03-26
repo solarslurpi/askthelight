@@ -17,9 +17,14 @@
     </style>
     <script>
         function clearPage() {
-            document.getElementById("response").innerHTML = "";
             document.getElementById("error").innerHTML = "";
+            document.getElementById("topic").innerHTML = "";
+            document.getElementById("title").innerHTML = "";
+            document.getElementById("response").innerHTML = "";
+            document.getElementById("feedback-form").reset();
         }
+
+        document.addEventListener('DOMContentLoaded', clearPage);
     </script>
 </head>
 
@@ -49,6 +54,16 @@
     {% endif %}
     {% if words %}
     <div id="response">{{ words|safe }}</div>
+    <form id="feedback-form" action="/submit-feedback" method="post">
+        <input type="hidden" name="topic" value="{{ topic }}">
+        <input type="hidden" name="title" value="{{ title }}">
+        <input type="hidden" name="response" value="{{ words }}">
+        <button type="submit" name="feedback" value="success">Success</button>
+        <button type="submit" name="feedback" value="fail">Fail</button>
+        <br>
+        <label for="additional-thoughts">Additional thoughts:</label><br>
+        <textarea id="additional-thoughts" name="additional_thoughts" rows="4" cols="50"></textarea>
+    </form>
     {% endif %}
 
 </body>
