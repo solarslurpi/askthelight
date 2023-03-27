@@ -50,4 +50,4 @@ def _what_would_Jesus_say(topic_string):
     return what_would_Jesus_say
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
