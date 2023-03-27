@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask the Light</title>
+    <style>
+        @font-face {
+            font-family: "PWSimpleHandwriting";
+            src: url("/static/fonts/PWSimpleHandwriting.woff2") format("woff2");
+        }
+
+        body {
+            font-family: "PWSimpleHandwriting", sans-serif;
+        }
+        #response, #topic {
+            margin-left: 40px;   /* adjust the value as needed */
+            margin-right: 40px;  /* adjust the value as needed */
+        }
+    </style>
+    <script>
+        function clearPage() {
+                    document.getElementById("error").innerHTML = "";
+                    document.getElementById("topic").value = "";
+                    document.getElementById("title").innerHTML = "";
+                    document.getElementById("response").innerHTML = "";
+                    document.getElementById("form").reset();
+                }
+
+                // clear the page when it first loads
+                document.addEventListener('DOMContentLoaded', clearPage);
+
+    </script>
+</head>
+
+<body>
+    <h1>This Little Light of Mine</h1>
+    <form id="form" method="post">
+        <label for="topic">What does Jesus think about </label>
+        <input type="text" id="topic" name="topic" required>
+        <label for="topic">?</label>
+        <button type="submit" onclick="clearPage()">Ask</button>
+    </form>
+    <br>
+    <hr>
+    <br>
+    {% if error %}
+    <div id="error">{{ error|safe }}</div>
+    {% endif %}
+    {% if topic %}
+    <div id="topic">
+        {{ topic }}
+    </div>
+    {% endif %}
+    {% if title %}
+    <div id="title">
+        <h3>{{ title }}</h3>
+    </div>
+    {% endif %}
+    {% if response %}
+    <div id="response">{{ response|safe }}
+        {% if topic or title or response %}
+            {% set topic = '' %}
+            {% set title = '' %}
+            {% set words = '' %}
+        {% endif %}
+    </div>
+    {% endif %}
+
+</body>
+
+</html>

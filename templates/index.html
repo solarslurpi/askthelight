@@ -4,43 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
     <title>Ask the Light</title>
-    <style>
-        @font-face {
-            font-family: "PWSimpleHandwriting";
-            src: url("/static/fonts/PWSimpleHandwriting.woff2") format("woff2");
-        }
 
-        body {
-            font-family: "PWSimpleHandwriting", sans-serif;
-        }
-        #response, #topic {
-            margin-left: 40px;   /* adjust the value as needed */
-            margin-right: 40px;  /* adjust the value as needed */
-        }
-    </style>
     <script>
-        function clearPage() {
-                    document.getElementById("error").innerHTML = "";
-                    document.getElementById("topic").value = "";
-                    document.getElementById("title").innerHTML = "";
-                    document.getElementById("response").innerHTML = "";
-                    document.getElementById("feedback-form").reset();
-                }
-
-                // clear the page when it first loads
-                document.addEventListener('DOMContentLoaded', clearPage);
-
+        // clear the page when it first loads
+        document.addEventListener('DOMContentLoaded', clearPage);
     </script>
 </head>
 
 <body>
     <h1>This Little Light of Mine</h1>
-    <form method="post">
+
+    <form id="form" method="post"> 
         <label for="topic">What does Jesus think about </label>
         <input type="text" id="topic" name="topic" required>
         <label for="topic">?</label>
-        <button type="submit" onclick="clearPage()">Ask</button>
+        <button type="submit" onclick="formStarting()">Ask</button>
     </form>
     <br>
     <hr>
@@ -67,7 +47,7 @@
         {% endif %}
     </div>
     {% endif %}
-
+    <script src="static\js\actions.js"></script>
 </body>
 
 </html>

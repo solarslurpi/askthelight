@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Ask the Light</title>
+    <style>
+        @font-face {
+            font-family: "PWSimpleHandwriting";
+            src: url("/static/fonts/PWSimpleHandwriting.woff2") format("woff2");
+        }
+
+        body {
+            font-family: "PWSimpleHandwriting", sans-serif;
+        }
+
+        #response,
+        #topic {
+            margin-left: 40px;
+            /* adjust the value as needed */
+            margin-right: 40px;
+            /* adjust the value as needed */
+        }
+    </style>
+    <script>
+    function handleSubmit(event) {
+        event.preventDefault();
+        showLoader();
+        const data = new FormData(document.getElementById("form"));
+        fetch('/process_form', {
+            method: 'POST',
+            body: data
+        })
+        .then(response => {
+            console.log(response);
+            return response.text();
+        })
+        .then(text => {
+            console.log(text)
+            hideLoader();
+            document.querySelector('#response').innerHTML = text;
+        })
+        .catch(error => {
+            console.log(error)
+            hideLoader();
+            document.querySelector('#error').innerHTML = 'There was an error processing your request.';
+        });
+        }
+
+        function showLoader() {
+            const loader = document.getElementById('loader');
+            loader.classList.add('show');
+        }
+
+        function hideLoader() {
+            const loader = document.getElementById('loader');
+            loader.classList.remove('show');
+        }
+    </script>
+</head>
+
+<body>
+    <h1>This Little Light of Mine</h1>
+    <form id="form" method="post">
+        <label for="topic">What does Jesus think about </label>
+        <input type="text" id="topic" name="topic" required>
+        <label for="topic">?</label>
+        <button type="submit" onclick="handleSubmit(event)">Ask</button>
+    </form>
+    <div id="loader"></div>
+    <br>
+    <hr>
+    <br>
+
+    {% if error %}
+    <div id="error">{{ error|safe }}</div>
+    {% endif %}
+    {% if topic %}
+    <div id="topic">
+        {{ topic }}
+    </div>
+    {% endif %}
+    {% if title %}
+    <div id="title">
+        <h3>{{ title }}</h3>
+    </div>
+    {% endif %}
+    {% if response %}
+    <div id="response">{{ response|safe }}
+        {% if topic or title or response %}
+        {% set topic = '' %}
+        {% set title = '' %}
+        {% set words = '' %}
+        {% endif %}
+    </div>
+    {% endif %}
+
+</body>
+
+</html>

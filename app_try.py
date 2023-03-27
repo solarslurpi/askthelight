@@ -1,18 +1,18 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 from ask_the_light import jesus_thoughts
 from logger import get_logger
 from moderator import check_if_flagged
 
 app = Flask(__name__)
 
-@app.route('/favicon.ico')
-def favicon():
-    return '', 204
-
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods = ["GET", "POST"])
 def index():
-    if request.method == 'GET':
-        return render_template('index.html', title='', words='', error=None)
+    if 
+    return render_template('index.html')
+
+@app.route('/process_form', methods=['POST'])
+def process_form():
+    print("IN --> process_form()")
     error = None
     topic_string = request.form.get('topic', '')
 
