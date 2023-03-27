@@ -14,17 +14,23 @@
         body {
             font-family: "PWSimpleHandwriting", sans-serif;
         }
+        #response, #topic {
+            margin-left: 40px;   /* adjust the value as needed */
+            margin-right: 40px;  /* adjust the value as needed */
+        }
     </style>
     <script>
         function clearPage() {
-            document.getElementById("error").innerHTML = "";
-            document.getElementById("topic").innerHTML = "";
-            document.getElementById("title").innerHTML = "";
-            document.getElementById("response").innerHTML = "";
-            document.getElementById("feedback-form").reset();
-        }
+                    document.getElementById("error").innerHTML = "";
+                    document.getElementById("topic").value = "";
+                    document.getElementById("title").innerHTML = "";
+                    document.getElementById("response").innerHTML = "";
+                    document.getElementById("feedback-form").reset();
+                }
 
-        document.addEventListener('DOMContentLoaded', clearPage);
+                // clear the page when it first loads
+                document.addEventListener('DOMContentLoaded', clearPage);
+
     </script>
 </head>
 
@@ -52,18 +58,14 @@
         <h3>{{ title }}</h3>
     </div>
     {% endif %}
-    {% if words %}
-    <div id="response">{{ words|safe }}</div>
-    <form id="feedback-form" action="/submit-feedback" method="post">
-        <input type="hidden" name="topic" value="{{ topic }}">
-        <input type="hidden" name="title" value="{{ title }}">
-        <input type="hidden" name="response" value="{{ words }}">
-        <button type="submit" name="feedback" value="success">Success</button>
-        <button type="submit" name="feedback" value="fail">Fail</button>
-        <br>
-        <label for="additional-thoughts">Additional thoughts:</label><br>
-        <textarea id="additional-thoughts" name="additional_thoughts" rows="4" cols="50"></textarea>
-    </form>
+    {% if response %}
+    <div id="response">{{ response|safe }}
+        {% if topic or title or response %}
+            {% set topic = '' %}
+            {% set title = '' %}
+            {% set words = '' %}
+        {% endif %}
+    </div>
     {% endif %}
 
 </body>
